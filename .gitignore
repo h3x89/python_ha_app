@@ -1,0 +1,7 @@
+desc.txt
+*.pyc
+.terraform/*
+key.json
+swarm-inventory
+terraform.tfstate
+terraform.tfstate.backup

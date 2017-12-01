@@ -1,0 +1,65 @@
+- name: Install Ansible Prereqs
+  hosts: swarm-master
+  gather_facts: no
+  tasks:
+    - raw: "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y python-minimal python-pip"
+
+- name: Install Docker Prereqs
+  hosts: swarm-master
+  gather_facts: yes
+  tasks:
+    - package:
+        name: "{{item}}"
+        state: latest
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+    - apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
+    - apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+        state: present
+
+- name: Install Docker
+  hosts: swarm-master
+  gather_facts: yes
+  tasks:
+    - easy_install:
+        name: pip
+        state: latest
+    - package:
+        name: "python-dev"
+        state: latest
+    - package:
+        name: "docker.io"
+        state: latest
+    - package:
+        name: "build-essential"
+        state: latest
+    - pip:
+        name: docker
+    - raw: "sudo pip install --upgrade docker"
+    - pip:
+        name: docker-compose
+    - user:
+        name: "ubuntu"
+        groups: docker
+        append: yes
+    - raw: "sudo /usr/sbin/usermod -a -G docker ubuntu"
+
+
+- name: Initialize Swarm Master
+  hosts: swarm-master
+  gather_facts: yes
+  tasks:
+    - command: "docker swarm leave --force"
+      ignore_errors: True
+    # - command: "docker swarm init --advertise-addr {{inventory_hostname}}"
+    - command: "docker swarm init"
+    - copy:
+        src: ./docker-compose.yml
+        dest: /home/ubuntu
+    - command: "docker stack deploy --compose-file=/home/ubuntu/docker-compose.yml production"
