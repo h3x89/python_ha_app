@@ -9,8 +9,9 @@ RUN apt-get update -y && \
     pip install --upgrade pip
 
 
-# Install python packages
-COPY ./requirements.txt /app/requirements.txt
+# Copy application configuration into docker and set workdir
+COPY ./requirements.txt ./app/
+WORKDIR /app
 RUN pip install -r requirements.txt
 
 # Copy application configuration into docker and set workdir
