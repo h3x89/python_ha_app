@@ -4,17 +4,19 @@ MAINTAINER Robert Kubiś "robert.h3x@gmail.com"
 
 # Update and install packages
 # apt does not have a stable docker CLI interface
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
+RUN apt-get update -y && \
+    apt-get install -y python-pip python-dev build-essential && \
+    pip install --upgrade pip
 
-RUN pip install --upgrade pip
+
+# Install python packages
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy application configuration into docker and set workdir
 COPY ./ /app
 WORKDIR /app
 
-# Install python packages
-RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python"]
 CMD ["app.py"]

@@ -1,3 +1,4 @@
+# script use onle for test local deployments
 export FLASK_APP=app.py
 export FLASK_DEBUG=1
 
