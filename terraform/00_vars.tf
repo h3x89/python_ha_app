@@ -5,7 +5,7 @@
 #
 
 variable "project_name" {
-  default = "roberth3x89"
+  default = "default-project-188123"
 }
 
 variable "ssh_user" {

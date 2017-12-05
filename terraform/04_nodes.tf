@@ -14,7 +14,7 @@ resource "google_compute_instance" "swarm-master" {
   }
 
   network_interface {
-    network = "roberth3x89"
+    network = "own-production-network"
 
     access_config {
       # nat_ip = "${element(google_compute_address.swarm-master.*.address, count.index)}"

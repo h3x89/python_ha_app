@@ -10,8 +10,8 @@ terraform {
 
 provider "google" {
   credentials = "${file("key.json")}"
-  project     = "roberth3x89"
+  # project     = "roberth3x89"
+  project     = "${var.project_name}"
   region      = "us-central1"
-
   version = "0.1.3"
 }

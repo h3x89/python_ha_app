@@ -1,5 +1,5 @@
-resource "google_compute_network" "roberth3x89" {
-  name       = "roberth3x89"
+resource "google_compute_network" "own-production-network" {
+  name       = "own-production-network"
   ipv4_range = "192.168.1.0/24"
 }
 #
@@ -9,11 +9,11 @@ resource "google_compute_network" "roberth3x89" {
 
 resource "google_compute_firewall" "allow-tcp-80" {
   depends_on = [
-    "google_compute_network.roberth3x89",
+    "google_compute_network.own-production-network",
   ]
 
   name    = "allow-tcp-80"
-  network = "${google_compute_network.roberth3x89.name}"
+  network = "${google_compute_network.own-production-network.name}"
 
   allow {
     protocol = "tcp"
@@ -26,11 +26,11 @@ resource "google_compute_firewall" "allow-tcp-80" {
 
 resource "google_compute_firewall" "allow-tcp-22" {
   depends_on = [
-    "google_compute_network.roberth3x89",
+    "google_compute_network.own-production-network",
   ]
 
   name    = "allow-tcp-22"
-  network = "${google_compute_network.roberth3x89.name}"
+  network = "${google_compute_network.own-production-network.name}"
 
   allow {
     protocol = "tcp"
