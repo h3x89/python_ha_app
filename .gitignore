@@ -1,6 +1,6 @@
 desc.txt
 *.pyc
-.terraform/*
+terraform/.terraform
 key.json
 swarm-inventory
 terraform.tfstate
