@@ -18,7 +18,7 @@ docker run -d -p 5000:5000 python_app
 
 ## Kill and Delete all docker containers
 ```
-docker kill $(docker ps -aq);docker rmi $(docker ps -aq)
+docker kill $(docker ps -aq);docker rm $(docker ps -aq)
 ```
 
 ## Delete all docker images
