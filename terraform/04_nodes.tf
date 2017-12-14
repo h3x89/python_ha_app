@@ -6,6 +6,9 @@ resource "google_compute_instance" "swarm-master" {
   zone         = "us-central1-a"
   tags         = ["allow-tcp-80", "allow-tcp-22"]
 
+  depends_on = [
+    "google_compute_network.own-production-network",
+  ]
 
   boot_disk {
     initialize_params {

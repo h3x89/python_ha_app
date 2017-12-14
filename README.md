@@ -22,7 +22,7 @@ key.json_example is a example
 
 change directory to terraform and execute:
 ```
-terraform apply
+cd terraform && terraform init && terraform apply
 ```
 
 then run ansible deploy in root project directory
